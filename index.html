@@ -18,11 +18,11 @@
     <div style="display: flex; gap: 20px;">
         <div class="card" style="flex: 1;">
             <p>TOTAL LIKES 👍</p>
-            <div id="likes" class="stat">En attente...</div>
+            <div id="likes" class="stat">Vérification...</div>
         </div>
         <div class="card" style="flex: 1;">
             <p>TOTAL FAVORIS ⭐</p>
-            <div id="favs" class="stat">En attente...</div>
+            <div id="favs" class="stat">Vérification...</div>
         </div>
     </div>
 
@@ -36,21 +36,22 @@
 
     <script>
         const UNIVERSE_ID = "9751741707";
-        const API_KEY = "uRQUMgv74Ei9mETLpsM/HILam7WKZCnHU5NgD6YVM59SOXl3ZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNkluTnBaeTB5TURJeExUQTNMVEV6VkRFNE9qVXhPalE1V2lJc0luUjVjQ0k2SWtwWFZDSjkuZXlKaGRXUWlPaUpTYjJKc2IzaEpiblJsY201aGJDSXNJbWx6Y3lJNklrTnNiM1ZrUVhWMGFHVnVkR2xqWVhScGIyNVRaWEoyYVdObElpd2lZbUZ6WlVGd2FVdGxlU0k2SW5WU1VWVk5aM1kzTkVWcE9XMUZWRXh3YzAwdlNFbE1ZVzAzVjB0YVEyNUlWVFZPWjBRMldWWk5OVGxUVDFoc015SXNJbTkzYm1WeVNXUWlPaUk1TmpjMk9Ea3hNakV4SWl3aVpYaHdJam94TnpjeU1qYzVPVEUzTENKcFlYUWlPakUzTnpJeU56WXpNVGNzSW01aVppSTZNVGMzTWpJM05qTXhOMzAuYU5TaW1Fc3ZHQnNXMm1DVXJRczVWS1FtNFF3dHRReWJHNlUta1V3VzBlSmZKa2VnaUFJWTRLRVI5bUE4V1BScmVnYVVyc2RmUEY3QzRRNXJCQi1DVF9nNnNtVjQxUVBCbGlKTmNKWUxyN1dqclZEOV94XzNDcklrdVFxU2ZDU21QSEUtM1BOS1RybXJQVVlZX1pHVkh0RnZNY3Zrd0RRdThHeWtrLW03WThvem5STjBlZC1yRUsyaldYQnpCUl9IMXdwQWo5MmdCbk40T1EtVUxfSzhlTlZISXBKZzY1RFliLVotVXdHNmpiTENRZllucVdPVVEyMldZMnVxTHpWLTM4RnBSS284bnoySkdLbDJGdWdVZWNOLVZRekhaWjNoWncxTm84SkRMUTBtOUJBdzgyTDBCQ2xrclFIM1kta0h2el9tSDk4ZjZwR3p2N3hSVl8wdUln"; // <--- METS TA CLÉ ICI
+        const API_KEY = "COLLE_TA_CLE_ICI"; // <--- METS TA CLÉ ICI
 
         async function updateDashboard() {
             try {
+                // Utilisation de RoProxy pour éviter les erreurs CORS rouges
                 const res = await fetch(`https://games.roproxy.com/v1/games?universeIds=${UNIVERSE_ID}`);
                 const data = await res.json();
                 
                 if (data.data && data.data[0]) {
                     const gameInfo = data.data[0];
-                    // On utilise les termes exacts de l'API Roblox
-                    document.getElementById('likes').innerText = gameInfo.upVotes.toLocaleString() || 0;
-                    document.getElementById('favs').innerText = gameInfo.favorites.toLocaleString() || 0;
+                    // On affiche les vraies valeurs ou 0 si c'est vide
+                    document.getElementById('likes').innerText = gameInfo.upVotes ?? 0;
+                    document.getElementById('favs').innerText = gameInfo.favorites ?? 0;
                 }
             } catch (error) {
-                console.error("Erreur de stats:", error);
+                console.error("Erreur :", error);
                 document.getElementById('likes').innerText = "Erreur API";
             }
         }
@@ -59,5 +60,3 @@
     </script>
 </body>
 </html>
-
-
