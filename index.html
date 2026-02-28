@@ -2,34 +2,33 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard Admin - Jeu 9751741707</title>
+    <title>Stats Jeu 9751741707</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #0f1113; color: #ffffff; margin: 0; padding: 30px; }
-        .card { background: #1a1d21; border-radius: 10px; padding: 20px; border: 1px solid #2d3238; margin-bottom: 20px; }
-        .stat-val { font-size: 35px; font-weight: bold; color: #00a2ff; }
-        .player-card { background: #25292e; padding: 15px; border-radius: 8px; text-align: center; width: 150px; border: 1px solid #00a2ff; }
-        .player-card img { width: 90px; height: 90px; border-radius: 50%; background: #111; }
+        body { font-family: sans-serif; background: #0f1113; color: white; padding: 20px; }
+        .card { background: #1a1d21; padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #333; }
+        .stat { font-size: 35px; color: #00a2ff; font-weight: bold; }
+        .admin-card { border: 1px solid #00a2ff; padding: 15px; width: 150px; text-align: center; border-radius: 8px; }
+        .admin-card img { width: 100px; border-radius: 50%; background: #000; }
     </style>
 </head>
 <body>
 
     <h1>📊 Stats du Jeu : 9751741707</h1>
-    <p>Admin ID : 9676891211</p>
 
     <div style="display: flex; gap: 20px;">
         <div class="card" style="flex: 1;">
-            <div>TOTAL LIKES 👍</div>
-            <div id="likes" class="stat-val">chargement...</div>
+            <p>TOTAL LIKES 👍</p>
+            <div id="likes" class="stat">chargement...</div>
         </div>
         <div class="card" style="flex: 1;">
-            <div>TOTAL FAVORIS ⭐</div>
-            <div id="favs" class="stat-val">chargement...</div>
+            <p>TOTAL FAVORIS ⭐</p>
+            <div id="favs" class="stat">chargement...</div>
         </div>
     </div>
 
     <div class="card">
         <h3>👤 Ton Profil Admin</h3>
-        <div class="player-card">
+        <div class="admin-card">
             <img src="https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds=9676891211&size=150x150&format=Png" alt="Avatar">
             <p>ID: 9676891211</p>
         </div>
@@ -37,25 +36,26 @@
 
     <script>
         const UNIVERSE_ID = "9751741707";
-        // COLLE TA CLÉ API ENTRE LES GUILLEMETS CI-DESSOUS
-        const API_KEY = "uRQUMgv74Ei9mETLpsM/HILam7WKZCnHU5NgD6YVM59SOXl3ZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNkluTnBaeTB5TURJeExUQTNMVEV6VkRFNE9qVXhPalE1V2lJc0luUjVjQ0k2SWtwWFZDSjkuZXlKaGRXUWlPaUpTYjJKc2IzaEpiblJsY201aGJDSXNJbWx6Y3lJNklrTnNiM1ZrUVhWMGFHVnVkR2xqWVhScGIyNVRaWEoyYVdObElpd2lZbUZ6WlVGd2FVdGxlU0k2SW5WU1VWVk5aM1kzTkVWcE9XMUZWRXh3YzAwdlNFbE1ZVzAzVjB0YVEyNUlWVFZPWjBRMldWWk5OVGxUVDFoc015SXNJbTkzYm1WeVNXUWlPaUk1TmpjMk9Ea3hNakV4SWl3aVpYaHdJam94TnpjeU1qYzVPVEUzTENKcFlYUWlPakUzTnpJeU56WXpNVGNzSW01aVppSTZNVGMzTWpJM05qTXhOMzAuYU5TaW1Fc3ZHQnNXMm1DVXJRczVWS1FtNFF3dHRReWJHNlUta1V3VzBlSmZKa2VnaUFJWTRLRVI5bUE4V1BScmVnYVVyc2RmUEY3QzRRNXJCQi1DVF9nNnNtVjQxUVBCbGlKTmNKWUxyN1dqclZEOV94XzNDcklrdVFxU2ZDU21QSEUtM1BOS1RybXJQVVlZX1pHVkh0RnZNY3Zrd0RRdThHeWtrLW03WThvem5STjBlZC1yRUsyaldYQnpCUl9IMXdwQWo5MmdCbk40T1EtVUxfSzhlTlZISXBKZzY1RFliLVotVXdHNmpiTENRZllucVdPVVEyMldZMnVxTHpWLTM4RnBSS284bnoySkdLbDJGdWdVZWNOLVZRekhaWjNoWncxTm84SkRMUTBtOUJBdzgyTDBCQ2xrclFIM1kta0h2el9tSDk4ZjZwR3p2N3hSVl8wdUln"; 
+        const API_KEY = "COLLE_TA_CLE_ICI"; // <--- METS TA CLÉ ICI
 
-        async function updateStats() {
+        async function updateDashboard() {
             try {
-                // Utilisation de RoProxy pour éviter l'erreur CORS vue dans ta console
                 const res = await fetch(`https://games.roproxy.com/v1/games?universeIds=${UNIVERSE_ID}`);
                 const data = await res.json();
                 
-                if(data.data && data.data[0]) {
-                    document.getElementById('likes').innerText = data.data[0].upVotes;
-                    document.getElementById('favs').innerText = data.data[0].favorites;
+                if (data.data && data.data[0]) {
+                    const gameInfo = data.data[0];
+                    // Correction : on utilise les noms exacts de l'API Roblox
+                    document.getElementById('likes').innerText = gameInfo.upVotes || 0;
+                    document.getElementById('favs').innerText = gameInfo.favorites || 0;
                 }
-            } catch(e) {
-                document.getElementById('likes').innerText = "Erreur API";
+            } catch (error) {
+                console.error("Erreur de stats:", error);
+                document.getElementById('likes').innerText = "Erreur";
             }
         }
 
-        updateStats();
+        updateDashboard();
     </script>
 </body>
 </html>
