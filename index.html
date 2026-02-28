@@ -2,13 +2,13 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Stats Jeu 9751741707</title>
+    <title>Stats du Jeu : 9751741707</title>
     <style>
         body { font-family: sans-serif; background: #0f1113; color: white; padding: 20px; }
         .card { background: #1a1d21; padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #333; }
         .stat { font-size: 35px; color: #00a2ff; font-weight: bold; }
-        .admin-card { border: 1px solid #00a2ff; padding: 15px; width: 150px; text-align: center; border-radius: 8px; }
-        .admin-card img { width: 100px; border-radius: 50%; background: #000; }
+        .admin-card { border: 2px solid #00a2ff; padding: 15px; width: 160px; text-align: center; border-radius: 12px; background: #1a1d21; }
+        .admin-card img { width: 110px; height: 110px; border-radius: 50%; background: #000; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -18,19 +18,19 @@
     <div style="display: flex; gap: 20px;">
         <div class="card" style="flex: 1;">
             <p>TOTAL LIKES 👍</p>
-            <div id="likes" class="stat">chargement...</div>
+            <div id="likes" class="stat">En attente...</div>
         </div>
         <div class="card" style="flex: 1;">
             <p>TOTAL FAVORIS ⭐</p>
-            <div id="favs" class="stat">chargement...</div>
+            <div id="favs" class="stat">En attente...</div>
         </div>
     </div>
 
     <div class="card">
-        <h3>👤 Ton Profil Admin</h3>
+        <h3>👤 Profil Admin</h3>
         <div class="admin-card">
             <img src="https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds=9676891211&size=150x150&format=Png" alt="Avatar">
-            <p>ID: 9676891211</p>
+            <p><strong>ID: 9676891211</strong></p>
         </div>
     </div>
 
@@ -45,13 +45,13 @@
                 
                 if (data.data && data.data[0]) {
                     const gameInfo = data.data[0];
-                    // Correction : on utilise les noms exacts de l'API Roblox
-                    document.getElementById('likes').innerText = gameInfo.upVotes || 0;
-                    document.getElementById('favs').innerText = gameInfo.favorites || 0;
+                    // On utilise les termes exacts de l'API Roblox
+                    document.getElementById('likes').innerText = gameInfo.upVotes.toLocaleString() || 0;
+                    document.getElementById('favs').innerText = gameInfo.favorites.toLocaleString() || 0;
                 }
             } catch (error) {
                 console.error("Erreur de stats:", error);
-                document.getElementById('likes').innerText = "Erreur";
+                document.getElementById('likes').innerText = "Erreur API";
             }
         }
 
@@ -59,4 +59,5 @@
     </script>
 </body>
 </html>
+
 
